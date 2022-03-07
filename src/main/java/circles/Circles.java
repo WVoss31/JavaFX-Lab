@@ -44,31 +44,35 @@ public class Circles extends VBox {
         starter.setHgap(10);
         starter.setPadding(new Insets(2));
 
-        
+        //making rows spinner
         Label RowLabel = new Label("Rows");
         ROWS = new Spinner(1, 5, 4);
         ROWS.setPrefWidth(60);
         ROWS.valueProperty().addListener(e -> { canvas.getChildren().clear(); 
         addAllRowsToCanvas(makeAllRows()); });
         
+        //making column spinner
         Label ColLabel = new Label("Columns");
         COLS = new Spinner(1, 5, 5);
         COLS.setPrefWidth(60);
         COLS.valueProperty().addListener(e -> { canvas.getChildren().clear(); 
            addAllRowsToCanvas(makeAllRows()); });
         
+        //making x_scale spinner
         Label xScaleLabel = new Label("X Scale");
         x_scale = new Spinner(-3, 3, 0);
         x_scale.setPrefWidth(60);
         x_scale.valueProperty().addListener(e -> { canvas.getChildren().clear(); 
         addAllRowsToCanvas(makeAllRows()); });
         
+        //making y_scale spinner
         Label yScaleLabel = new Label("Y Scale");
         y_scale = new Spinner(-3, 3, 0);
         y_scale.setPrefWidth(60);
         y_scale.valueProperty().addListener(e -> { canvas.getChildren().clear(); 
         addAllRowsToCanvas(makeAllRows()); });
         
+        //Making cell size slider
         Label SliderLabel = new Label("Cell Size");
         CELL_SIZE = new Slider(50, 150, 100);
         CELL_SIZE.setPrefWidth(150);
