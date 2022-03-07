@@ -32,7 +32,6 @@ public class Circles extends VBox {
     public Circles() {
         setAlignment(Pos.CENTER);
         
-        
         canvas = new Pane();
         canvas.setPrefSize(5 * 150, 5 * 150);
         
@@ -40,20 +39,19 @@ public class Circles extends VBox {
         control.setAlignment(Pos.CENTER);
         
         starter = new GridPane();
-        //starter.setAlignment(Pos.BOTTOM_CENTER);
         starter.setHgap(10);
         starter.setPadding(new Insets(2));
 
         //making rows spinner
         Label RowLabel = new Label("Rows");
-        ROWS = new Spinner(1, 5, 4);
+        ROWS = new Spinner(1, 5, 3);
         ROWS.setPrefWidth(60);
         ROWS.valueProperty().addListener(e -> { canvas.getChildren().clear(); 
         addAllRowsToCanvas(makeAllRows()); });
         
         //making column spinner
         Label ColLabel = new Label("Columns");
-        COLS = new Spinner(1, 5, 5);
+        COLS = new Spinner(1, 5, 3);
         COLS.setPrefWidth(60);
         COLS.valueProperty().addListener(e -> { canvas.getChildren().clear(); 
            addAllRowsToCanvas(makeAllRows()); });
@@ -120,6 +118,7 @@ public class Circles extends VBox {
         double toY = (row * (int)(CELL_SIZE.getValue())) + ((int)(CELL_SIZE.getValue()) / 2);
         newCircle.setCenterX(fromX);
         newCircle.setCenterY(fromY);
+        newCircle.setRadius((int)(CELL_SIZE.getValue()) / 4);
         newCircle.setFill(new Color(Math.random(), Math.random(), Math.random(), 1.0));
         
         canvas.getChildren().add(newCircle);
@@ -132,8 +131,8 @@ public class Circles extends VBox {
         
         ScaleTransition st = new ScaleTransition(Duration.millis((250 * Math.random() + 500)));
         st.setNode(newCircle);
-        st.setByX(1.0);
-        st.setByY(1.0);
+        st.setByX((int)x_scale.getValue());
+        st.setByY((int)y_scale.getValue());
         st.setCycleCount(Animation.INDEFINITE);
         st.setAutoReverse(true);
         st.play();
@@ -142,7 +141,7 @@ public class Circles extends VBox {
     
     
     private Stream<Circle> makeRow() {
-        return Stream.generate(() -> new Circle()).limit((int)COLS.getValue());
+        return Stream.generate(() -> new Circle()).limit((int)(COLS.getValue()));
     }
     
     private void addRowToCanvas(Stream<Circle> stream) {
@@ -152,7 +151,8 @@ public class Circles extends VBox {
     }
     
     private Stream<Stream<Circle>> makeAllRows() {
-        return Stream.generate(() -> makeRow()).limit((int)ROWS.getValue());
+        canvas.getChildren().clear();
+        return Stream.generate(() -> makeRow()).limit((int)(ROWS.getValue()));
     }
     
     private void addAllRowsToCanvas(Stream<Stream<Circle>> grid) {
