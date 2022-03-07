@@ -109,8 +109,6 @@ public class Circles extends VBox {
         getChildren().addAll(canvas, control);
         control.getChildren().addAll(starter);
         
-        addButtonHandler();  // You must write
-        
         canvas.getChildren().clear(); 
         addAllRowsToCanvas(makeAllRows());
     }
@@ -142,14 +140,6 @@ public class Circles extends VBox {
         
     }
     
-    /**
-     * This method adds the handler to the button that gives
-     * this application its behavior.
-     */
-    private void addButtonHandler() {
-        ROWS.valueProperty().addListener(e -> { canvas.getChildren().clear(); 
-           addAllRowsToCanvas(makeAllRows()); });
-    }
     
     private Stream<Circle> makeRow() {
         return Stream.generate(() -> new Circle()).limit((int)COLS.getValue());
